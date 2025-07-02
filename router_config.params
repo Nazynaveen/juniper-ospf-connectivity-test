@@ -1,0 +1,39 @@
+x-show-log                         1;
+x-log-level                        "info";
+x-cmd-log-level                    "info";
+x-resp-log-level                   "info";
+x-dump-error-stack                 1;
+x-no-resource-reservation-check    1;
+x-show-expect-log                  0;
+x-log-listing-on-close             2;
+
+r0 {
+    system {
+        name "lilybunny";
+    }
+    interfaces {
+        r0-r1-1 {
+            name "ge-0/2/6.0";
+        }
+    }
+}
+
+r1 {
+    system {
+        name "ablebaker";
+    }
+    interfaces {
+        r0-r1-1 {
+            name "ge-0/2/6.0";
+        }
+    }
+}
+
+x-testcase-001 (
+    "x-descr"           "Ping test with OSPF"
+    "x-descr-long"      "Assign IP for Interfaces and Configure OSPF and Verify PING process"
+    "x-cmd"             "&ConfigurePingTest::configure_ping_test_100"
+    "x-is-run"          1
+    "routers"           ( r0 r1 )
+);
+
